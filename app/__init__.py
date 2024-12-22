@@ -1,7 +1,6 @@
-from flask import Flask, jsonify
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
 
 application = Flask(__name__)
-application.secret_key = 'stock application by shubham '
+application.secret_key = 'loan prediction app by shubham'
 
 from app.models import *

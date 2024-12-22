@@ -3,8 +3,11 @@ from flask import *
 from app.models import *
 import numpy as np
 import pickle
+from flask_bcrypt import Bcrypt
 
 model = pickle.load(open('model.pkl', 'rb')) ## rb :- read binary
+
+bcrypt = Bcrypt(application)
 
 @application.route('/')
 def home():
@@ -23,9 +26,9 @@ def login():
 
         if isUserPresent:
             try:
-                user = User.query.filter_by(email=email, password=password).first()
+                user = User.query.filter_by(email=email).first()
                 
-                if user:  # If user exists
+                if bcrypt.check_password_hash(user.password, password):  # If user exists
                     session['user_id'] = user.user_id
                     return redirect(url_for('predict'))
                 else:
@@ -45,7 +48,7 @@ def register():
         try:
             full_name = request.form['full_name']
             email = request.form['email']
-            password = request.form['password']
+            password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
             
             user = User(full_name, email, password)
             
@@ -101,7 +104,7 @@ def logout():
     try:
         if session.get('user_id'):
             session.pop('user_id', None)
-            return render_template('home.html')
+            return redirect(url_for('home'))
         else:
             return render_template('500.html') 
     except Exception as e:

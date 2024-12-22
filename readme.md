@@ -1,5 +1,7 @@
 # Loan Prediction Web Application
 
+## **APP Demo Images And Video link ** : [Drive demo link](https://drive.google.com/drive/folders/1SqmthGlKuSJENQ38PC2aLQwqVfaJSi0X?usp=sharing) 
+
 ## Project Overview
 
 The **Loan Prediction Web Application** is designed to automate the loan eligibility verification process for Dream Housing Finance. Using a machine learning model integrated with a Python Flask web application, this project enables users to register, log in, and check their loan eligibility by providing necessary details.
